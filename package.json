@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "express": "^4.21.2",
+    "googleapis": "^156.0.0",
+    "node": "^22.18.0",
+    "qrcode": "^1.5.4",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.32.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}

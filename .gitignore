@@ -1,0 +1,8 @@
+node_modules/
+sessions-inquilinos/
+service-account.json
+.env
+*.b64.txt
+soy-reporter-*.json
+.DS_Store
+*.log
