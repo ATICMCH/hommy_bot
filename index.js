@@ -55,6 +55,8 @@ const SHEET_TENANTS   = 'INQUILINOS NOTIFICACIONES';
 const SHEET_TEMPL_MAD = 'CORTA ESTANCIA MADRID';
 const SHEET_TEMPL_C43 = 'CORTA ESTANCIA C43';
 const SHEET_TEMPL_H2  = 'CORTA ESTANCIA H2';
+const SHEET_TEMPL_RRHH = 'RRHH';
+const SHEET_TEMPL_LARGA = 'LARGA ESTANCIA';
 const SHEET_LOG       = 'LOG';
 
 // WhatsApp y loop
@@ -181,12 +183,14 @@ async function loadTemplatesFor(sheetName) {
 }
 
 async function loadAllTemplates() {
-  const [mad, c43, h2] = await Promise.all([
+  const [mad, c43, h2, rrhh, larga] = await Promise.all([
     loadTemplatesFor(SHEET_TEMPL_MAD),
     loadTemplatesFor(SHEET_TEMPL_C43),
-    loadTemplatesFor(SHEET_TEMPL_H2)
+    loadTemplatesFor(SHEET_TEMPL_H2),
+    loadTemplatesFor(SHEET_TEMPL_RRHH),
+    loadTemplatesFor(SHEET_TEMPL_LARGA)
   ]);
-  return { mad, c43, h2 };
+  return { mad, c43, h2, rrhh, larga };
 }
 
 /* ================== INQUILINOS ================== */
@@ -272,6 +276,8 @@ async function alreadySentToday(number, code) {
 
 function pickTemplateSet(templates, address) {
   const addr = (address || '').toUpperCase().replace(/\s+/g, '');
+  if (addr.includes('RRHH')) return templates.rrhh;
+  if (/\-LE$/.test(addr)) return templates.larga;
   if (addr.includes('CASITA43')) return templates.c43;
   if (addr.includes('HOYO2'))    return templates.h2;
   return templates.mad; // Madrid por defecto
